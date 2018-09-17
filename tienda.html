@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <style>
+    #productos{
+text-align: center;
+
+    }
+    #tienda{
+      text-align: center;
+      font-size: 70px;
+      font-family: fantasy;
+    }
+    #carrito{
+      text-align: left;
+    }
+    </style>
+      <h1 id='tienda'>Tienda</h1>
+      <div id='productos'>
+<img src='https://naranjasmirador.com/26-thickbox_default/naranjas-de-mesa.jpg' width='100' height='100'>
+  <button id='añadirna'>Añadir</button>
+    <h4>10$</h4>
+<img src='https://www.fruteriadevalencia.com/wp-content/uploads/2015/02/RED-DELICIOUS-buena.jpg' width='100' height='100'>
+  <button id='añadirma'>Añadir</button>
+    <h4>5$</h4>
+<img src='https://comefruta.es/wp-content/uploads/melocoton-rojo.jpg' width='100' height='100'>
+  <button id='añadirme'>Añadir</button>
+    <h4>25$</h4>
+
+  <h1>Cartera=<span id='cartera'>100</span>$</h1>
+</div>
+<hr>
+<h3>Carrito compra</h3>
+<div id='carrito'>
+
+<h4>Total compra<span id='compra'></span>$</h4>
+<input id='cantidad' type='number'></input><button id='pagar'>Pagar</button>
+
+</div>
+<h4>Cambios= <span id='cambios'></span></h4>
+<script type="text/javascript">
+
+var productos=['naranjas','manzanas','melocotones']
+var precioNaranjas=10;
+var precioManzanas=5;
+var precioMelocotones=25;
+var totalCompra=0;
+var cartera=100;
+
+//naranjas
+  $('button#añadirna').click(function(){
+      $('div#carrito').append('<h4 class="fruta">'+ productos[0] +'   '+ precioNaranjas +'$'+'</h4><i class="fas fa-times"></i>');
+
+        if(cartera<=0){
+            alert('no tienes tanto dinero en la cartera')
+        }
+
+
+  $('span#compra').text(totalCompra=totalCompra + precioNaranjas)
+
+  })
+//manzanas
+  $('button#añadirma').click(function(){
+      $('div#carrito').append('<h4 class="fruta">'+ productos[1] +'   '+ precioManzanas +'$'+'</h4><i class="fas fa-times"></i>');
+
+      if(cartera<=0){
+          alert('no tienes tanto dinero en la cartera')
+      }
+
+
+  $('span#compra').text(totalCompra=totalCompra + precioManzanas)
+
+  })
+  //Melocotones
+  $('button#añadirme').click(function(){
+    $('div#carrito').append('<h4 class="fruta">'+ productos[2] +'   '+ precioMelocotones +'$'+'</h4><i class="fas fa-times"></i>');
+
+      if(cartera<=0){
+          alert('no tienes tanto dinero en la cartera')
+      }
+
+  $('span#compra').text(totalCompra = totalCompra + precioMelocotones)
+
+  })
+    //pagar
+  $('button#pagar').click(function(){
+    var inputPagar=$('input#cantidad').val();
+
+    if(inputPagar<totalCompra){
+
+      alert('que no te llega xabal')
+    }
+    if(inputPagar>100){
+      alert('no tienes tanto dinero')
+    }
+    else{
+      $('span#cambios').text(cambios = inputPagar - totalCompra)
+      $('span#cartera').text(cartera=cartera - totalCompra)
+      $('div#carrito').hide();
+    }
+
+
+  })
+
+$(document).on('click','i.fas.fa-times',function(event){
+
+  $(event.currentTarget).prev().remove();
+  $(event.currentTarget).remove();
+
+
+});
+
+</script>
+
+
+
+  </body>
+</html>

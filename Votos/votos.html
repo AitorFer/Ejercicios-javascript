@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Votos</title>
+  </head>
+  <body>
+    <style>
+#nuevaCaja{
+  padding-top: 300px;
+}
+
+          </style>
+<h3 style='text-align:center'>Votemos</h3>
+<div id='cajas'>
+
+</div>
+<div id='contadores'>
+    <h4 style='text-align:right'>Total=<span id='total'></span></h4>
+    <h4 style='text-align:right'>Partidos=<span id='partidos'></span></h4>
+    <button id='reset'>reset</button>
+</div>
+
+<div id='nuevaCaja'>
+  <h4>Nombre</h4>
+  <input id='nombreNuevo'></input>
+  <h4>Imagen(url)</h4>
+  <input id='imagenNueva'></input>
+  <button id='crear'>Crear</button>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<script type="text/javascript">
+
+  var totalVotos=0;
+
+                                  //al cargar la pagina
+function pintar(){
+    politicas.forEach(function(partido){
+                                  //html del append
+        var htmlPolitica='<div style="float:left" id="' +partido.id+ '"><br>'+
+                          "<h3 id='nombre'>"  +partido.nombre+"</h3><i class='fas fa-times'></i><br>"+
+                          "<img width='100' height='100' src="+partido.imagen+" id='imagen'><br>"+
+                          "<span class='votos'>"+partido.votos+"</span><br>"+
+                          "<button class='mas'>"+"Mas"+"</button><br><br>"+
+                          "<button class='menos'>"+"Menos"+"</button><br><br>"+
+                          "</div>"
+
+                          $('div#cajas').append(htmlPolitica);
+
+
+        totalVotos = partido.votos + totalVotos
+                console.log(politicas)
+                console.log(totalVotos)
+    });
+
+
+        $("#total").text(totalVotos)
+  }
+                                        //array de las cajas
+var politicas=localStorage.getItem('politicas');
+      if(!politicas){
+            politicas=[];
+    }else{
+      politicas=JSON.parse(politicas)
+
+            console.log(politicas)
+
+  }
+
+//[{
+          //  id: 1,
+            //  votos: 4,
+              //imagen:'https://creativekatarsis.com/wp-content/uploads/2016/09/pnv11-1.jpg',
+              //nombre:'PNV'},
+
+            //{id: 2,
+              //  votos:3,
+                //imagen:'https://graffica.info/wp-content/uploads/2017/01/ciudadanos-logo.jpg',
+                //nombre:'Ciudadanos'},
+
+            //{id: 3,
+              //votos:1,
+              //imagen:'https://www.eljueves.es/medio/2017/01/31/logo-pterodactil-pp_374e7662.jpg',
+              //nombre:'PP'},
+
+            //{id: 4,
+            //  imagen:'https://podemos.info/wp-content/uploads/2018/02/logo_podemos_square-300x300.jpg',
+            //  nombre:'Podemos',
+              //votos:3},
+
+//];
+var nuevosPartidos = politicas.length;
+    
+    $('#partidos').text(nuevosPartidos);
+
+pintar()
+                                 //function botones
+  $(document).on('click','.mas',function(event){
+    var id = parseInt($(event.currentTarget).parent().attr('id'));
+    var politica;
+    for (var x = 0; x < politicas.length; x++) {
+      if (politicas[x].id === id) {
+        politica = politicas[x];
+      }
+    }
+        politica.votos++;
+                                    //totalVotos
+            totalVotos++;
+  $(event.currentTarget).parent().find(".votos").text(politica.votos)
+                $("#total").text(totalVotos)
+              var politicasSrg=JSON.stringify(politicas)
+            localStorage.setItem('politicas',politicasSrg)
+
+    console.log(politica.votos);
+});
+  $(document).on('click','.menos',function(event){
+    var id = parseInt($(event.currentTarget).parent().attr('id'));
+    var politica;
+    for (var x = 0; x < politicas.length; x++) {
+      if (politicas[x].id === id) {
+        politica = politicas[x];
+      }
+    }
+          politica.votos--;
+    //totalVotos
+        totalVotos--;
+      if(politica.votos<0){
+        return  alert("no se puede votar menos")
+      }
+      $(event.currentTarget).parent().find(".votos").text(politica.votos)
+            $("#total").text(totalVotos)
+
+            var politicasSrg=JSON.stringify(politicas)
+          localStorage.setItem('politicas',politicasSrg)
+
+
+    console.log(politica.votos);
+});
+    //botonReset
+    $('button#reset').click(function(){
+                  totalVotos=0;
+        politicas.forEach(function(partido){
+
+        $('.votos').text(partido.votos=totalVotos)
+        $('#total').text(totalVotos)
+    });
+        var politicasSrg=JSON.stringify(politicas)
+            localStorage.setItem('politicas',politicasSrg)
+});
+    //eliminarCaja
+  $(document).on('click','i.fa-times',function(event){
+
+    var id = parseInt($(event.currentTarget).parent().attr('id'));
+    console.log(id);
+    var partido;
+    $(event.currentTarget).parent().remove()
+                nuevosPartidos--;
+
+        for(var x=0;x<politicas.length;x++){
+
+            if(politicas[x].id===id) {
+              partido=politicas[x];
+              politicas.splice(x,1)
+            }
+
+        }
+            var politicasSrg=JSON.stringify(politicas)
+            localStorage.setItem('politicas',politicasSrg)
+
+        totalVotos = totalVotos - partido.votos;
+
+      $('#partidos').text(nuevosPartidos)
+          $('#total').text(totalVotos)
+
+
+})
+          //meter nuevaCaja
+  function crear(nombreNuevo, imagenNueva){
+    var x
+    if (!politicas.length){
+      x=0;
+    }else{
+      x=politicas[politicas.length - 1].id
+    }
+
+
+      var nuevaCaja={id:x + 1,
+                    nombre:nombreNuevo,
+                    imagen:imagenNueva,
+                    votos:0}
+
+          var htmlNuevaCaja='<div style="float:left" id="' +nuevaCaja.id+ '"><br>'+
+                            "<h3 id='nombre'>"  +nuevaCaja.nombre+"</h3><i class='fas fa-times'></i><br>"+
+                            "<img width='100' height='100' src="+nuevaCaja.imagen+" id='imagen'><br>"+
+                            "<span class='votos'>"+nuevaCaja.votos+"</span><br>"+
+                            "<button class='mas'>"+"Mas"+"</button><br><br>"+
+                            "<button class='menos'>"+"Menos"+"</button><br><br>"+
+                            "</div>"
+
+                    politicas.push(nuevaCaja)
+
+          $('div#cajas').append(htmlNuevaCaja)
+
+          var politicasSrg=JSON.stringify(politicas)
+          localStorage.setItem('politicas',politicasSrg);
+}
+
+$('#crear').click(function(){
+    var nombreNuevo=$('#nombreNuevo').val();
+    var imagenNueva=$('#imagenNueva').val();
+              nuevosPartidos++;
+    $('#partidos').text(nuevosPartidos);
+            console.log(politicas)
+
+      crear(nombreNuevo, imagenNueva)
+
+    });
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tienda Joseba</title>
+    <style media="screen">
+
+      .center {
+        display: inline;
+      }
+
+      .oculto {
+        display:none;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h1>Tienda</h1>
+    <h2 style="text-align:right">Cartera:<span id="cartera">0</span>€</h2>
+
+    <div id="productos" style="text-align:center"></div>
+
+    <div id="listaCompra">
+      <h2>Carrito de compra: <span id="productosCarrito"></span></h2>
+    </div>
+
+    <div id="total">
+      <h2>Total: </h2><span id="totalCompra">0</span>€
+      <br>
+      <input id="pago" type="number" max="100" min="0"></input>
+      <button id="pagar">Pagar</button>
+      <br>
+      <br>
+        <h3>Descuentos(introduce codigo descuento)</h3>
+            <input id='descuentos' type='text'></input>
+        <button id='canjear'>Codigo</button>
+      <br>
+      <h2>Cambios: </h2><span id="cambios">0</span>€
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <script type="text/javascript">
+
+      $(function () {
+
+        var productos = [
+          {
+            id: 1,
+            nombre: 'Jersey',
+            precio: 25,
+            imagen: 'https://s3-eu-west-1.amazonaws.com/micoletstatic/item_images/ce8/589/9c9/98f/926/be9/136267/standard/jersey-gris-oversize.JPG?1460598220'
+          },
+          {
+            id: 2,
+            nombre: 'Pantalon',
+            precio: 5,
+            imagen: 'https://s3-eu-west-1.amazonaws.com/micoletstatic/item_images/95c/9b3/065/39e/b07/db6/604051/standard/pantalon-negro-con-rayas-lateral-blanca.jpg?1501553571'
+          },
+          {
+            id: 3,
+            nombre: 'Camisa',
+            precio: 10,
+            imagen: 'https://img3.woman.es/f9/39/20/20-camisas-zara-verde-bordada.jpg'
+          }
+        ];
+
+        var total = 0;
+        var cartera = 100;
+
+        $('#cartera').text(cartera);
+
+        productos.forEach(function (producto) {
+          var htmlProducto = '<div class="center" id="' + producto.id + '">' +
+            '<span class="nombre">' + producto.nombre + '</span>' +
+            '<span class="precio">' + producto.precio + '</span>€' +
+            '<img class="imagen" src="' + producto.imagen + '" width="100px" height="100px">' +
+            '<button class="añadir">Añadir</button>' +
+          '</div>';
+          $('div#productos').append(htmlProducto);
+        });
+
+        $('.añadir').click(function (event) {
+          var id = parseInt($(event.currentTarget).parent().attr('id'));
+          var producto;
+          for (var x = 0; x < productos.length; x++) {
+            if (productos[x].id === id) {
+              producto = productos[x];
+            }
+          }
+          if (!producto) { return alert('Producto defectuoso'); }
+          $('#listaCompra').append('<p data-id="' + producto.id + '">'+ producto.nombre + ': ' + producto.precio + '€ <span class="eliminar">X</span></p>')
+          total = total + producto.precio;
+          $('#totalCompra').text(total);
+        });
+
+        $('#pagar').click(function () {
+          var pago = parseInt($('#pago').val());
+          if (total <= 0) {
+            return alert('Mete algo al carrito antes de pagar.');
+          }
+          if (pago > cartera) {
+            return alert('No tienes suficiente dinero en la cartera');
+          }
+          if (pago < total) {
+            return alert('Dinero insuficiente para el pago.');
+          }
+          $('span#cambios').text(pago - total)
+          cartera = cartera - total;
+          $('#cartera').text(cartera);
+          total = 0;
+          $('#listaCompra').html('');
+          $('#totalCompra').html(0);
+          $('#pago').val('')
+
+        });
+
+        $(document).on('click', '.eliminar', function(event){
+          var id = parseInt($(event.currentTarget).parent().data('id'));
+          $(event.currentTarget).parent().remove();
+          var producto;
+          for (var x = 0; x < productos.length; x++) {
+            if (productos[x].id === id) {
+              producto = productos[x];
+
+            }
+            if(inputDescuento==="BARATO"){
+                total = total - (producto[x].precio*0.10)
+            }
+          }
+          if (!producto) { return alert('Producto defectuoso'); }
+          if (total < producto.precio) { return alert('Producto con el precviop defectuoso'); }
+          total = total - producto.precio;
+          $('#totalCompra').text(total);
+        });
+//descuentos
+            $('button#canjear').click(function(){
+              console.log(123456);
+                var inputDescuento=$('#descuentos').val();
+              if(inputDescuento==="BARATO"){
+                  total = total - parseInt(total*0.10)
+                    $('#totalCompra').text(total);
+                  }
+              if(inputDescuento==="SUPERBARATO"){
+                    total = total - parseInt(total*0.35)
+                    $('#totalCompra').text(total);
+              }
+              if(inputDescuento==="OFERTON"){
+                    total = total - parseInt(total*0.75)
+                    $('#totalCompra').text(total);
+              }
+            });
+      });
+
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <button id='prueba'>pruebaThis</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript">
+      var alumno={
+            name:'aitor',
+            saludar:function(){
+                console.log(this.name +' '+ this.apellido);
+        },
+            apellido:'fernandez',
+      }
+            alumno.saludar();
+            alumno.name='pedro';
+
+$('#prueba').click(function(event){
+      console.log(this)
+      console.log(event.currentTarget)
+  $(this).text("cambiartexto")
+
+
+})
+
+    </script>
+    </body>
+</html>
