@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+
+    <h1> cuenta atras </h1>
+    <h1 id='cuenta' type='number'></h1>
+    <input type='number' id='cronometro'>
+    <button id='play'>Play</button>
+    <button id='stop'>stop</button>
+    <button id='pause'>pause</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+
+    <script type='text/javascript'>
+function cronometro(){
+
+    var settings={
+      inicioTime:60,
+      duration:500
+    }
+
+    var x;
+    var pausado=false;
+    var tiempo=0;
+
+  if(localStorage.getItem('tiempo')){
+      $('input#cronometro').val(localStorage.getItem('tiempo'))
+  }
+
+    $('button#play').click(function(){
+      if (!pausado) {
+        var input=parseInt($('input#cronometro').val());
+        localStorage.setItem('tiempo',input)
+        settings.inicioTime = input;
+      }
+                    console.log(input)
+
+     x = setInterval(function () {
+        settings.inicioTime=settings.inicioTime - 1;
+    if(settings.inicioTime>=0){
+            $('h1#cuenta').text(settings.inicioTime)
+      } else {
+                  clearInterval(x)
+        }
+      }, settings.duration);
+
+                  console.log(settings.inicioTime)
+      $('#play').hide()
+      $('#pause').show()
+      pausado=false;
+    })
+    $('button#pause').click(function(){
+                  pausado=true;
+                clearInterval(x)
+          $('#pause').hide()
+          $('#play').show()
+    })
+}
+$('button#stop').click(function(){
+        clearInterval(x)
+            pausado=false;
+
+})
+cronometro()
+
+
+
+
+    </script>
+
+
+  </body>
+</html>
