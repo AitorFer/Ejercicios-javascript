@@ -50,10 +50,10 @@ function cronometro(){
         }
       }, settings.duration);
 
-                  console.log(settings.inicioTime);
+                  console.log(settings.inicioTime)
       $('#play').hide()
       $('#pause').show()
-                  pausado=false;
+      pausado=false;
     })
     $('button#pause').click(function(){
                   pausado=true;
@@ -61,16 +61,12 @@ function cronometro(){
           $('#pause').hide()
           $('#play').show()
     })
-
+}
 $('button#stop').click(function(){
         clearInterval(x)
-      settings.inicioTime=$('input#cronometro').val();
-  $('h1#cuenta').text(settings.inicioTime)
-      $('#play').show()
-                pausado=true;
+            pausado=false;
 
 })
-}
 cronometro()
 
 

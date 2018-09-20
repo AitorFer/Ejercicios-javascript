@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="number" id="numero" value=''>
+    <button id="buscar" type="button" name="button">Buscar</button>
+    <br>
+    <br>
+    <button id="previo">Previo</button>
+    <img src="" alt="">
+    <button id="siguiente">Siguiente</button>
+    <h1 id="name"></h1>
+    <h3 id="species"></h3>
+    <h4 id="gender"></h4>
+    <h4 id="origin"></h4>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <script type="text/javascript">
+
+    var id = 1;
+    var url = 'https://rickandmortyapi.com/api/character/';
+    var personaje = localStorage.getItem('personaje');
+
+
+    function obtenerPersonaje () {
+
+      if (personaje) {
+        personaje = JSON.parse(personaje);
+        $('img').attr('src', personaje.image);
+        $('h1#name').text(personaje.name);
+        $('h3#species').text(personaje.species);
+        $('#gender').text(personaje.gender);
+        $('#origin').text(personaje.origin.name);
+        id = personaje.id;
+        $('input').val(id);
+      }
+
+      $('button#buscar').click(function () {
+        var number = parseInt($('input').val());
+        if (number >= 1 && number <= 25) {
+          id = number;
+        }
+      $.get(url + id, function (response) {
+        localStorage.setItem('personaje', JSON.stringify(response))
+        $('img').attr('src', response.image);
+        $('h1#name').text(response.name);
+        $('h3#species').text(response.species);
+        $('#gender').text(response.gender);
+        $('#origin').text(response.origin.name);
+        $('input').val(id);
+
+
+                      console.log(response)
+})
+  })
+        $('button#previo').click(function () {
+                      id= id-1
+
+          $.get(url + id, function (personaje) {
+            localStorage.setItem('personaje', JSON.stringify(personaje))
+            $('img').attr('src', personaje.image);
+            $('h1#name').text(personaje.name);
+            $('h3#species').text(personaje.species);
+            $('#gender').text(personaje.gender);
+            $('#origin').text(personaje.origin.name);
+            $('input').val(id);
+
+                  console.log(personaje);
+                })
+        });
+        $('button#siguiente').click(function () {
+
+                          id=id + 1;
+
+          $.get(url + id, function (personaje) {
+            localStorage.setItem('personaje',JSON.stringify(personaje));
+              $('img').attr('src', personaje.image);
+              $('h1#name').text(personaje.name);
+              $('h3#species').text(personaje.species);
+              $('#gender').text(personaje.gender);
+              $('#origin').text(personaje.origin.name);
+              $('input').val(id);
+
+                    console.log(personaje);
+                })
+      })
+
+    };
+
+    obtenerPersonaje();
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+
+    <html>
+  <head>
+  <meta charset="UTF-8">
+  <title>Calculadora con JavaScript</title>
+  <link type="text/css" href="estilo.css" rel="stylesheet">
+  </head>
+  <body>
+    <style>
+.reset{
+  background-color: #046500;
+}
+.numero{
+  border-radius: 30px;
+  border-color:black;
+}
+.operando{
+    border-radius: 30px;
+    border-color:black;
+}
+.calculadora{
+	display:block;
+	margin:0 auto;
+	padding:20px;
+	background-color:#DC4C46;
+	width:350px;
+	height:500px;
+	border-radius: 25px;
+}
+.calculadora td button{
+	display:block;
+	width:60px;
+	height:70px;
+	font-size: 25px;
+}
+#creditos{
+	display:block;
+	padding-top:20px;
+	color:#fff;
+	text-align: center;
+	width:300px;
+}
+#resultado{
+	display:block;
+	text-align: center;
+	font-size: 40px;
+	margin-bottom: 50px;
+	width:300px;
+	height: 100px;
+	line-height: 120px;
+	background-color:#fff;
+	border-radius: 50px;
+	overflow-y: scroll;
+}
+
+
+</style>
+
+  <table class="calculadora">
+  <tr>
+   <td colspan="4"><span id="resultado"></span>
+   </td>
+
+  </tr>
+  <tr>
+   <td><button id="7" class='numero' data-number='7'>7</button></td>
+   <td><button id="8" class='numero' data-number='8'>8</button></td>
+   <td><button id="9" class='numero' data-number='9'>9</button></td>
+
+   <td><button id="dividir" class='operando'>/</button></td>
+
+  </tr>
+  <tr>
+   <td><button id="4" class='numero' data-number='4'>4</button></td>
+   <td><button id="5" class='numero' data-number='5'>5</button></td>
+   <td><button id="6" class='numero' data-number='6'>6</button></td>
+
+   <td><button id="multiplicar" class='operando'>*</button></td>
+
+  </tr>
+  <tr>
+   <td><button id="1" class='numero' data-number='1'>1</button></td>
+   <td><button id="2" class='numero' data-number='2'>2</button></td>
+   <td><button id="3" class='numero' data-number='3'>3</button>
+   </td>
+   <td>
+
+     <button id="restar" class='operando'>-</button></td>
+
+  </tr>
+  <tr>
+   <td><button id="igual" class='operando'>=</button></td>
+   <td><button id="C" class='reset'>C</button></td>
+   <td><button id="0" class='numero' data-number='0'>0</button></td><td>
+
+  <button id="sumar" class='operando'>+</button></td>
+
+  </tr>
+  </table>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  </body>
+  </html>
+
+  </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script type='text/javascript'>
+
+    var valorCompleto1='';
+    var valorCompleto2='';
+    var total=parseInt(valorCompleto1) + operando + parseInt(valorCompleto2)
+    var nuevoValor='';
+    var operando;
+
+$(document).ready(function(){
+        $("#1").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+              console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+              console.log(valorCompleto2)
+          }
+        $("#resultado").append('1');
+      });
+        $("#2").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+              console.log(valorCompleto2)
+          }
+        $("#resultado").append("2");
+      });
+        $("#3").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+            console.log(valorCompleto2)
+          }
+        $("#resultado").append('3');
+      });
+        $("#4").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                  console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+            console.log(valorCompleto2)
+          }
+        $("#resultado").append("4");
+      });
+        $("#5").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+            console.log(valorCompleto2)
+        }
+        $("#resultado").append("5");
+      });
+        $("#6").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+            console.log(valorCompleto2)
+          }
+        $("#resultado").append("6");
+      });
+        $("#7").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+            console.log(valorCompleto2)
+          }
+        $("#resultado").append("7");
+      });
+        $("#8").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+                console.log(valorCompleto2)
+          }
+        $("#resultado").append("8");
+      });
+        $("#9").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+                console.log(valorCompleto2)
+          }
+        $("#resultado").append("9");
+      });
+        $("#0").on("click",function(event){
+          if(!operando){
+              valorCompleto1=valorCompleto1 + $(event.currentTarget).data('number')
+                console.log(valorCompleto1)
+          }
+          else{
+            valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
+                console.log(valorCompleto2)
+          }
+        $("#resultado").append("0");
+      });
+    //sumar
+        $(".operando").on('click',function(event){
+          $('button.numero').css('background-color','#fff');
+
+          if($(event.currentTarget).attr('id')==='sumar'){
+            operando='+';
+            total=parseInt(valorCompleto1 + valorCompleto2)
+                  console.log(operando)
+                $('#resultado').append('<span>+</span>');
+
+          }if($(event.currentTarget).attr('id')==='restar'){
+              operando='-';
+                  console.log(operando)
+                total=parseInt(valorCompleto1 - valorCompleto2)
+
+                $('#resultado').append('<span>-</span>');
+
+          }if($(event.currentTarget).attr('id')==='multiplicar'){
+              operando='*';
+                  console.log(operando)
+              total=parseInt(valorCompleto1 * valorCompleto2)
+
+            $('#resultado').append('<span>*</span>');
+
+          }if($(event.currentTarget).attr('id')==='dividir'){
+            operando='/';
+                console.log(operando)
+            total=parseInt(valorCompleto1/valorCompleto2)
+            
+            $('#resultado').append('<span>/</span>');
+          }else{
+
+          }
+                console.log(total);
+
+        });
+      //reset
+      $('#C').click(function(){
+            $('button.numero').css('background-color','#fff');
+      if(!operando){
+            valorCompleto1=total;
+            valorCompleto2='';
+          }else{
+
+          }
+
+            $('#resultado').html('');
+          });
+    //total
+        $('#igual').on('click',function(){
+              if(operando==='+'){
+                    total=parseInt(valorCompleto1) + parseInt(valorCompleto2)
+            }
+              if(operando==='-'){
+                  total=parseInt(valorCompleto1) - parseInt(valorCompleto2)
+            }
+              if(operando==='*'){
+                  total=parseInt(valorCompleto1) * parseInt(valorCompleto2)
+              }
+              if(operando==='/'){
+                  total=parseInt(valorCompleto1) / parseInt(valorCompleto2)
+                }
+          $('#resultado').html('')
+          $('#resultado').append(total)
+          console.log(total)
+  });
+  //pintar colores cuando clikas
+
+$('button.numero').click(function(event){
+    $(event.currentTarget).css('background-color','#3d0000')
+
+})
+
+})
+
+    </script>
+  </body>
+</html>
