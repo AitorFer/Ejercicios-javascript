@@ -117,9 +117,9 @@
 
     var valorCompleto1='';
     var valorCompleto2='';
-    var total=parseInt(valorCompleto1) + operando + parseInt(valorCompleto2)
-    var nuevoValor='';
+    var total;
     var operando;
+    var resultado=true;
 
 $(document).ready(function(){
         $("#1").on("click",function(event){
@@ -153,7 +153,6 @@ $(document).ready(function(){
             valorCompleto2=valorCompleto2 + $(event.currentTarget).data('number');
             console.log(valorCompleto2)
           }
-        $("#resultado").append('3');
       });
         $("#4").on("click",function(event){
           if(!operando){
@@ -242,6 +241,7 @@ $(document).ready(function(){
                   console.log(operando)
                 $('#resultado').append('<span>+</span>');
 
+
           }if($(event.currentTarget).attr('id')==='restar'){
               operando='-';
                   console.log(operando)
@@ -260,25 +260,19 @@ $(document).ready(function(){
             operando='/';
                 console.log(operando)
             total=parseInt(valorCompleto1/valorCompleto2)
-            
+
             $('#resultado').append('<span>/</span>');
-          }else{
-
-          }
+          }else{}
                 console.log(total);
-
         });
-      //reset
+    //reset
       $('#C').click(function(){
             $('button.numero').css('background-color','#fff');
-      if(!operando){
-            valorCompleto1=total;
-            valorCompleto2='';
-          }else{
-
-          }
-
-            $('#resultado').html('');
+              total=$('#resultado').html()
+            if(!operando){
+              $('#resultado').html('')
+              total=$('#resultado').html()
+            }
           });
     //total
         $('#igual').on('click',function(){
@@ -298,6 +292,8 @@ $(document).ready(function(){
           $('#resultado').append(total)
           console.log(total)
   });
+
+
   //pintar colores cuando clikas
 
 $('button.numero').click(function(event){
