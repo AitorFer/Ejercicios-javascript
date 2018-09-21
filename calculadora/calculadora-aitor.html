@@ -144,22 +144,17 @@
       $('#resultado').html('')
     });
     //total
+    //Anti-hackeo
     $('#igual').on('click',function(){
-      // PELIGRO!
-      var calculo = eval($('#resultado').html());
-      $('#resultado').text(calculo)
-    });
-
-
-  //pintar colores cuando clikas
-
-// $('button.numero').click(function(event){
-//     $(event.currentTarget).css('background-color','#3d0000')
-//
-// })
-
-})
-
+       var calculo = $('#resultado').text();
+       if (noEsUnCalculoSeguro(calculo)) { return $('#resultado').text(''); }
+       var resultado = eval($('#resultado').html());
+       $('#resultado').text(resultado)
+     });
+     function noEsUnCalculoSeguro (calculo) {
+       return new RegExp(/[^0-9+-/\*]/).test(calculo);
+     }
+   });
     </script>
   </body>
 </html>
