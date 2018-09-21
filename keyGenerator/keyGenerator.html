@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type='number' id='longitud'>
+    <button id='obtener'>OBTENER</button>
+    <h3 id='contraseña'></h3>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script type='text/javascript'>
+function password(){
+    $('button#obtener').click(function(){
+        var contraseña='';
+        var input=parseInt($('#longitud').val())
+        var caracteres="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz0123456789";
+    for(var x=0;x<input;x++){
+          contraseña=contraseña + caracteres[Math.floor(Math.random()*caracteres.length)]
+                //console.log(input)
+                //console.log(contraseña)
+        }
+      $('h3#contraseña').text(contraseña)
+    })
+}
+password()
+
+</script>
+  </body>
+</html>
