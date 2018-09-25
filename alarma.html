@@ -42,7 +42,7 @@
       var id=parseInt($(event.currentTarget).parent().attr('id'));
       for(var x=0;x<alarmas.length;x++){
           if(id===alarmas[x].id){
-          alarmas[x].activo=false;
+        alarmas[x].activo=false;
             console.log(alarmas)
         }
           if(!alarmas[x].activo && id===alarmas[x].id){
