@@ -22,48 +22,50 @@
                     activo:true,
                     id:alarmas.length + 1})
 
-          console.log(alarmas)
+            console.log(alarmas)
 
   });
   $(document).on('click','button#eliminar',function(event){
       var id=parseInt($(event.currentTarget).parent().attr('id'));
       $(event.currentTarget).parent().remove()
-      console.log(alarmas);
-      for(var x=0;x<alarmas.length;x++){
-        console.log(id,alarmas[x].id);
-        if(id===alarmas[x].id){
-            alarmas.splice(x,1)
+            console.log(alarmas);
+        for(var x=0;x<alarmas.length;x++){
+            console.log(id,alarmas[x].id);
+          if(id===alarmas[x].id){
+          alarmas.splice(x,1)
         }
 
       }
-          console.log(alarmas)
+            console.log(alarmas)
   })
   $(document).on('click','#seleccionado',function(event){
       var id=parseInt($(event.currentTarget).parent().attr('id'));
       for(var x=0;x<alarmas.length;x++){
-        if(id===alarmas[x].id){
-            alarmas[x].activo=false;
-              console.log(alarmas)
+          if(id===alarmas[x].id){
+          alarmas[x].activo=false;
+            console.log(alarmas)
         }
+          if(!alarmas[x].activo && id===alarmas[x].id){
+          alarmas[x].activo=true;
+          }
 
       }
   })
-    setInterval(function(event){
+    setInterval(function(){
       var input=$('input#time').val();
       var fechaActual = new Date();
       for(var x=0;x<alarmas.length;x++){
-        if(input===fechaActual.getHours() + ':' + fechaActual.getMinutes()){
-                alert('sonando alarma')
-
-            $('input#seleccionado').prop('checked', false)
+        if(input===fechaActual.getHours() + ':' + fechaActual.getMinutes() && alarmas[x].activo===true){
+                  alert('sonando alarma')
+        $('input#seleccionado').prop('checked', false)
+        alarmas[x].activo=false;
             console.log('alarmasonando')
-            console.log(alarmas)
         }
       }
+            console.log(alarmas)
 
 
-
-    },10000)
+},10000)
 </script>
   </body>
 </html>
