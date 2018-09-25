@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <input type='time' id='time' data='input'>
+    <button id='crear'>Crear</button>
+<div id='creacion'>
+  </div>
+<script type="text/javascript">
+      var alarmas=[];
+      var checked=true;
+  $('button#crear').click(function(event){
+    var input=$('input#time').val();
+    var append="<br><div class='creado' id='" + (alarmas.length + 1) + "'><input id='seleccionado' type='checkbox' checked><h3 id='alarma'>"+input+"</h3><button id='eliminar'>Eliminar</button><br></div>";
+  $('div#creacion').append(append)
+
+      alarmas.push({hora:input,
+                    activo:true,
+                    id:alarmas.length + 1})
+
+          console.log(alarmas)
+
+  });
+  $(document).on('click','button#eliminar',function(event){
+      var id=parseInt($(event.currentTarget).parent().attr('id'));
+      $(event.currentTarget).parent().remove()
+      console.log(alarmas);
+      for(var x=0;x<alarmas.length;x++){
+        console.log(id,alarmas[x].id);
+        if(id===alarmas[x].id){
+            alarmas.splice(x,1)
+        }
+
+      }
+          console.log(alarmas)
+  })
+  $(document).on('click','#seleccionado',function(event){
+      var id=parseInt($(event.currentTarget).parent().attr('id'));
+      for(var x=0;x<alarmas.length;x++){
+        if(id===alarmas[x].id){
+            alarmas[x].activo=false;
+              console.log(alarmas)
+        }
+
+      }
+  })
+    setInterval(function(event){
+      var input=$('input#time').val();
+      var fechaActual = new Date();
+      for(var x=0;x<alarmas.length;x++){
+        if(input===fechaActual.getHours() + ':' + fechaActual.getMinutes()){
+                alert('sonando alarma')
+
+            $('input#seleccionado').prop('checked', false)
+            console.log('alarmasonando')
+            console.log(alarmas)
+        }
+      }
+
+
+
+    },10000)
+</script>
+  </body>
+</html>
