@@ -13,17 +13,25 @@
 <script type="text/javascript">
       var alarmas=[];
       var checked=true;
+
+    if(localStorage.getItem('alarmas')){
+      alarmas=JSON.parse(localStorage.getItem('alarmas'))
+    }
+    console.log(alarmas);
+    alarmas.forEach(function(){
+      var append="<br><div class='creado' id='" + alarmas.length + "'><input id='seleccionado' type='checkbox' checked><h3 id='alarma'>"+alarmas.hora+"</h3><button id='eliminar'>Eliminar</button><br></div>";
+       $('div#creacion').append(append)
+    })
   $('button#crear').click(function(event){
     var input=$('input#time').val();
     var append="<br><div class='creado' id='" + (alarmas.length + 1) + "'><input id='seleccionado' type='checkbox' checked><h3 id='alarma'>"+input+"</h3><button id='eliminar'>Eliminar</button><br></div>";
   $('div#creacion').append(append)
-
       alarmas.push({hora:input,
                     activo:true,
                     id:alarmas.length + 1})
 
+        localStorage.setItem('alarmas', JSON.stringify(alarmas))
             console.log(alarmas)
-
   });
   $(document).on('click','button#eliminar',function(event){
       var id=parseInt($(event.currentTarget).parent().attr('id'));
@@ -34,7 +42,6 @@
           if(id===alarmas[x].id){
           alarmas.splice(x,1)
         }
-
       }
             console.log(alarmas)
   })
@@ -42,13 +49,12 @@
       var id=parseInt($(event.currentTarget).parent().attr('id'));
       for(var x=0;x<alarmas.length;x++){
           if(id===alarmas[x].id){
-        alarmas[x].activo=false;
+         alarmas[x].activo=false;
             console.log(alarmas)
         }
           if(!alarmas[x].activo && id===alarmas[x].id){
           alarmas[x].activo=true;
           }
-
       }
   })
     setInterval(function(){

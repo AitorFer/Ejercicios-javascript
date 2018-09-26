@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <div id='formulario'>
+      <input type='text' name='nombre' value='aitor' id='nombre'>
+      <input type='name' name='password' value='1234' id='password'>
+      <button id='login'>Entrar</button>
+  </div>
+    <div id='app'>
+  </div>
+    <script type='text/javascript'>
+
+var token=localStorage.getItem('token');
+    if(!token){
+
+    $('button#login').click(function(){
+    $.ajax({
+	         url:'http://192.168.100.78:1337/login',
+           type:'POST',
+           data:{nombre:$('input#nombre').val(),
+                pass:$('input#password').val(),
+                              }
+                })
+                .done(function(token){
+                    console.log('echo')
+                    console.log(token)
+                    localStorage.setItem('token',token)
+                    location.reload()
+          })    .fail(function(){
+                alert('error')
+        })
+      })
+    }else{
+      $.ajax({
+             url: 'http://192.168.100.78:1337/amigos',
+             type:'GET',
+             data:{},
+             headers:{token:localStorage.getItem('token')}
+           }).done(function(amigos){
+                $('div#formulario').hide();
+                console.log(amigos)
+                $('div#app').append("<button id='logout'>Logout</button>")
+                amigos.forEach(function(amigo){
+                $('div#app').append("<div class='creado'><h3>"+amigo.nombre+"</h3><br></div>")
+          })
+      })
+    }
+    $(document).on('click','#logout',function(){
+        localStorage.removeItem('token');
+        location.reload()
+        $('div#app').hide();
+        $('div#formulario').show();
+    })
+
+    </script>
+
+  </body>
+</html>
